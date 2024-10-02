@@ -9,8 +9,6 @@ the third has endpoint change_bg will take input video and image and another end
 the fourth has endpoint lip_synch will take input video_ch_bg_output_path from third api and  audio_trans_output_path from second api , and another endpoint get_path_lip_sync return video_lip_output_path
 so create code to handle all of these 
 
-
-
 change_bg_api = 0.0.0.0:8000/change_background, 0.0.0.0:8000/get_path_change_bg, 0.0.0.0:8000/get_video_output_bg
 face_swap_api = 0.0.0.0:5000/face_swap, 0.0.0.0:5000/get_path_face_swap
 translation_api = 0.0.0.0:5001/translate ,0.0.0.0:5001/get_path_translated
