@@ -1,0 +1,46 @@
+i have 4 apis : 
+first : 0.0.0.0:8080
+second : 0.0.0.0:5004
+third : 0.0.0.0:5001
+fourth : 0.0.0.0:5000
+the first has endpoint get_path_face_swap return video_faceSwap_output_path
+the second has endpoint get_path_translation return audio_trans_output_path
+the third has endpoint change_bg will take input video and image and another endpoint get_path_change_background return video_ch_bg_output_path
+the fourth has endpoint lip_synch will take input video_ch_bg_output_path from third api and  audio_trans_output_path from second api , and another endpoint get_path_lip_sync return video_lip_output_path
+so create code to handle all of these 
+
+change_bg_api = 0.0.0.0:8000/change_background, 0.0.0.0:8000/get_path_change_bg, 0.0.0.0:8000/get_video_output_bg
+face_swap_api = 0.0.0.0:5000/face_swap, 0.0.0.0:5000/get_path_face_swap
+translation_api = 0.0.0.0:5001/translate ,0.0.0.0:5001/get_path_translated
+lip_sync_api = 0.0.0.0:5004/lip_sync, 0.0.0.0:5004/get_path_lip_sync
+
+change background = 
+    1- post('/change_background') take from user (target_url and background_url) and return (video_input, image_back and output_path)
+    2- get('/get_path_change_bg') return output_path
+    3- get('/get_video_output_bg') return file name video to download it 
+
+face swap = 
+    1- post('/face_swap') take from user (video_url and source_url) and return (video_input, image_input and output_path)
+    2- get('/get_path_face_swap') return output_path
+
+translation = 
+    1- post('/translate') take from user (prompt,
+                                            language, trans_lang, audio_file_pth, mic_file_path, use_mic, 
+                                            voice_cleanup  and  no_lang_auto_detect) 
+                                            and return filename to download it 
+    2- get('/get_path_translated') return output_path 
+
+lip synch = 
+    1- post('/lip_sync') take from user (face_url or (from output_faceswap) or (from output_change_bg), audio_url or (from translation) and pads) 
+                                            and return output_path
+    2- get('/get_path_lip_sync') return output_path
+
+operation 1 ==> create every tool alone
+
+operation 2 ==> create face swap and change background
+
+operation 3 ==> create face_swap and lip_sync
+
+operation 4 ==> create face_swap, change_background and translation
+
+operation 5 ==> create face_swap, change_background, translation and lip_sync
